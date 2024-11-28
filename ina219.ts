@@ -126,7 +126,6 @@ namespace ina219 {
          * shunt ADC resolution << 3
          * mode
          */
-        //serial.writeLine("gain: " + convertToText(gain))
         let config = BusVoltageRange.RANGE_32V << 13
             | gain << 11
             | ADCResolution.ADCRES_12BIT_8S << 7
@@ -161,45 +160,25 @@ namespace ina219 {
             }
         }
         writeRegister(REG_CALIBRATION, cal_value);
-        //serial.writeLine("cal_value: " + convertToText(cal_value))
-    }
-
-    // setMaxCurrentShunt(5, 0.002);
-    function setMaxCurrentShunt(maxCurrent: number, shunt: number): void {
-        if (maxCurrent < 0.001) return;
-        if (shunt < 0.001) return;
-
-        //  _current_LSB = maxCurrent / 32768;
-        current_lsb = maxCurrent * 3.0517578125e-5;
-        power_lsb = current_lsb * 20;
-
-        let calib = (0.04096 / (current_lsb * shunt));
-        writeRegister(REG_CALIBRATION, calib);
     }
 
     //% blockId="getShuntVoltage" block="Ermittle Shunt Spannung in mV"
     export function getShuntVoltage(): number {
-        //writeRegister(REG_CALIBRATION, cal_value);
         let value = readRegister(REG_SHUNTVOLTAGE);
         if (value > 32767) {
             value -= 65535;
         }
-        //serial.writeString("Shunt: ")
-        //serial.writeNumber(value)
-        //serial.writeLine("")
         return value * 0.01;
     }
 
     //% blockId="getBusVoltage" block="Ermittle Bus Spannung in V"
     export function getBusVoltage(): number {
-        //writeRegister(REG_CALIBRATION, cal_value);
         let busVoltage = readRegister(REG_BUSVOLTAGE);
         return (busVoltage >> 3) * 0.004;
     }
 
     //% blockId="getCurrentmA" block="Ermittle Strom in mA"
     export function getCurrentmA(): number {
-        //writeRegister(REG_CALIBRATION, cal_value);
         let value = readRegister(REG_CURRENT);
         if (value > 32767) {
             value -= 65535;
@@ -209,7 +188,6 @@ namespace ina219 {
 
     //% blockId="getPowerW" block="Ermittle Leistung in mW"
     export function getPowerW(): number {
-        //writeRegister(REG_CALIBRATION, cal_value);
         let value = readRegister(REG_POWER);
         if (value > 32767) {
             value -= 65535;
