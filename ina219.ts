@@ -82,7 +82,7 @@ enum Mode {
 /**
  * Custom blocks
  */
-//% weight=20 color=#0fbc11 icon=""
+//% weight=20 color=#0fbc11 icon="\uf0e7"
 namespace ina219 {
 
     let I2CADDR = INA219ADDR.X40;
