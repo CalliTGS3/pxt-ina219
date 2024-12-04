@@ -2,8 +2,7 @@
     "name": "pxt-INA219",
     "description": "",
     "dependencies": {
-        "core": "*",
-        "v2": "*"
+        "core": "*"
     },
     "files": [
         "ina219.ts",
